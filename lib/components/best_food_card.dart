@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:user/screens/item_details.dart';
 
 class BestFoodCard extends StatelessWidget {
-  const BestFoodCard({
-    Key key,
-  }) : super(key: key);
+  final String primaryKey;
+  const BestFoodCard({this.primaryKey});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('Best food');
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => FoodDetailPage(
+                  primaryKey: this.primaryKey,
+                )));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),

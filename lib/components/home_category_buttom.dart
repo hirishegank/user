@@ -15,9 +15,12 @@ class CategoryIconButton extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Image.asset(image),
+            SizedBox(
+              height: 8,
+            ),
             Text(
               lable,
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: 12),
             ),
           ],
         ),

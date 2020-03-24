@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:user/screens/home_page.dart';
 
+import 'cart_items.dart';
+
 class BottomNavigation extends StatefulWidget {
   BottomNavigation({Key key}) : super(key: key);
 
@@ -15,12 +17,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Center(
-      child: Text(
-        'Cart',
-        style: optionStyle,
-      ),
-    ),
+    CartPage(),
     Center(
       child: Text(
         'Orders',
