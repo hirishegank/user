@@ -13,6 +13,39 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String searchText;
+
+  Future showCustomModal(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          color: Color(0xff757575),
+          child: Container(
+              height: MediaQuery.of(context).size.height * 4 / 9,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  )),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      'Filter',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              )),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,7 +76,19 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
-                  decoration: kHomeInputDecoration,
+                  decoration: kHomeInputDecoration.copyWith(
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        showCustomModal(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_downward,
+                        size: 40,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
                   onChanged: (value) {
                     searchText = value;
                     print(searchText);
