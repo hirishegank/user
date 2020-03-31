@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user/components/order_card.dart';
+import 'package:user/screens/order_confirmation.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key key}) : super(key: key);
@@ -17,29 +18,6 @@ class _OrderPageState extends State<OrderPage>
     Tab(text: 'Ongoing'),
   ];
 
-  List<Widget> myTab = [
-    ListView(
-      children: <Widget>[
-        OrderCards(isPast: true),
-        OrderCards(isPast: true),
-        OrderCards(isPast: true),
-        OrderCards(isPast: true),
-        OrderCards(isPast: true),
-        OrderCards(isPast: true),
-      ],
-    ),
-    ListView(
-      children: <Widget>[
-        OrderCards(isPast: false),
-        OrderCards(isPast: false),
-        OrderCards(isPast: false),
-        OrderCards(isPast: false),
-        OrderCards(isPast: false),
-        OrderCards(isPast: false),
-      ],
-    ),
-  ];
-
   TabController _tabController;
 
   @override
@@ -54,8 +32,38 @@ class _OrderPageState extends State<OrderPage>
     super.dispose();
   }
 
+  void callback(past) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => OrderConfirmPage(
+              isPast: past,
+            )));
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> myTab = [
+      ListView(
+        children: <Widget>[
+          OrderCards(isPast: true, onTap: () => callback(true)),
+          OrderCards(isPast: true, onTap: () => callback(true)),
+          OrderCards(isPast: true, onTap: () => callback(true)),
+          OrderCards(isPast: true, onTap: () => callback(true)),
+          OrderCards(isPast: true, onTap: () => callback(true)),
+          OrderCards(isPast: true, onTap: () => callback(true)),
+        ],
+      ),
+      ListView(
+        children: <Widget>[
+          OrderCards(isPast: false, onTap: () => callback(false)),
+          OrderCards(isPast: false, onTap: () => callback(false)),
+          OrderCards(isPast: false, onTap: () => callback(false)),
+          OrderCards(isPast: false, onTap: () => callback(false)),
+          OrderCards(isPast: false, onTap: () => callback(false)),
+          OrderCards(isPast: false, onTap: () => callback(false)),
+        ],
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Orders'),
