@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:user/screens/home_page.dart';
+import 'package:user/screens/order_page.dart';
 
 import 'cart_items.dart';
 
@@ -18,12 +19,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     CartPage(),
-    Center(
-      child: Text(
-        'Orders',
-        style: optionStyle,
-      ),
-    ),
+    OrderPage(),
     Center(
       child: Text(
         'Profile',
@@ -72,9 +68,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.black87,
-          unselectedLabelStyle: TextStyle(color: Colors.black87),
+          selectedItemColor: Colors.black87,
+          unselectedItemColor: Colors.white,
+          unselectedLabelStyle: TextStyle(color: Colors.white),
           showUnselectedLabels: true,
           onTap: _onItemTapped,
         ),

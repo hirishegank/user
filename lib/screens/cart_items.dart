@@ -8,6 +8,7 @@ import 'package:user/components/home_category_buttom.dart';
 import 'package:user/screens/bottom_navigation.dart';
 import 'package:user/screens/customize_screen.dart';
 import 'package:user/screens/delivery_option.dart';
+import 'package:user/screens/dinein_option.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -261,7 +262,8 @@ class _CartItemCardState extends State<CartItemCard> {
               ),
               CategoryIconButton(
                 onTap: () {
-                  print('Rice & Curry');
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => DineInOptionPage()));
                 },
                 image: 'assets/icon/dinein.png',
                 lable: 'Dine In',
