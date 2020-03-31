@@ -106,12 +106,30 @@ class _HomePageState extends State<HomePage> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: <Widget>[
-                PopularFoodCard(),
-                PopularFoodCard(),
-                PopularFoodCard(),
-                PopularFoodCard(),
-                PopularFoodCard(),
-                PopularFoodCard(),
+                PopularFoodCard(
+                  initialRating: 2.5,
+                  numberOfRators: 200,
+                ),
+                PopularFoodCard(
+                  initialRating: 2.5,
+                  numberOfRators: 200,
+                ),
+                PopularFoodCard(
+                  initialRating: 2.5,
+                  numberOfRators: 200,
+                ),
+                PopularFoodCard(
+                  initialRating: 2.5,
+                  numberOfRators: 200,
+                ),
+                PopularFoodCard(
+                  initialRating: 2.5,
+                  numberOfRators: 200,
+                ),
+                PopularFoodCard(
+                  initialRating: 2.5,
+                  numberOfRators: 200,
+                ),
               ],
             ),
           ),
@@ -128,13 +146,27 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 20,
           ),
-          BestFoodCard(),
-          BestFoodCard(),
-          BestFoodCard(),
-          BestFoodCard(),
-          BestFoodCard(),
-          BestFoodCard(),
-          BestFoodCard(),
+          BestFoodCard(
+            initialRating: 2.5,
+          ),
+          BestFoodCard(
+            initialRating: 2.5,
+          ),
+          BestFoodCard(
+            initialRating: 2.5,
+          ),
+          BestFoodCard(
+            initialRating: 2.5,
+          ),
+          BestFoodCard(
+            initialRating: 2.5,
+          ),
+          BestFoodCard(
+            initialRating: 2.5,
+          ),
+          BestFoodCard(
+            initialRating: 2.5,
+          ),
         ],
       ),
     );

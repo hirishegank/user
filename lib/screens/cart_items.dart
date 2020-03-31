@@ -5,6 +5,7 @@ import 'package:user/components/big_button.dart';
 
 import 'package:user/components/delete_icon_button.dart';
 import 'package:user/components/home_category_buttom.dart';
+import 'package:user/screens/bottom_navigation.dart';
 import 'package:user/screens/customize_screen.dart';
 import 'package:user/screens/delivery_option.dart';
 
@@ -91,7 +92,8 @@ class _CartPageState extends State<CartPage> {
                     text: 'Checkout',
                     onPressed: () {
                       print('checkout');
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => BottomNavigation()));
                     },
                   )
                 ],

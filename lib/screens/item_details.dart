@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:user/components/big_button.dart';
@@ -104,8 +105,17 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                       ),
                     ),
                   ),
-                  Text(
-                    'ratting...',
+                  RatingBarIndicator(
+                    rating: 4.5,
+                    direction: Axis.horizontal,
+                    itemCount: 5,
+                    itemSize: 25,
+                    unratedColor: Colors.green.shade100,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: Colors.green,
+                    ),
                   ),
                 ],
               ),

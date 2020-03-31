@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user/screens/item_details.dart';
 
 class CooksDishedCard extends StatelessWidget {
   final String primaryKey;
 
-  const CooksDishedCard({
-    this.primaryKey,
-  });
+  final double initialRating;
+
+  const CooksDishedCard({this.primaryKey, @required this.initialRating});
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +39,24 @@ class CooksDishedCard extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
                 Text('4.1'),
                 SizedBox(
                   width: 5,
                 ),
-                Text('rating....'),
+                RatingBarIndicator(
+                  rating: initialRating,
+                  direction: Axis.horizontal,
+                  itemCount: 5,
+                  itemSize: 12,
+                  unratedColor: Colors.green.shade100,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.green,
+                  ),
+                ),
                 SizedBox(
                   width: 5,
                 ),
