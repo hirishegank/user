@@ -1,0 +1,101 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/fa_icon.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:user/components/profile_content_card.dart';
+import 'package:user/screens/favourite_page.dart';
+import 'package:user/screens/help_page.dart';
+import 'package:user/screens/payment_methods.dart';
+import 'package:user/screens/setting_view.dart';
+import 'package:user/screens/walkthrough.dart';
+
+class ViewProfilePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: ListView(
+      children: <Widget>[
+        ProfileCard(),
+        SizedBox(
+          height: 20,
+        ),
+        ProfileContentCard(
+          icon: FaIcon(FontAwesomeIcons.solidHeart),
+          lable: 'Your Favourites',
+          onTap: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => FavouritePage())),
+        ),
+        ProfileContentCard(
+          icon: FaIcon(FontAwesomeIcons.creditCard),
+          lable: 'Payments',
+          onTap: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => PaymentsPage())),
+        ),
+        ProfileContentCard(
+          icon: FaIcon(FontAwesomeIcons.cog),
+          lable: 'Settings',
+          onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => SettingsViewPage())),
+        ),
+        ProfileContentCard(
+          icon: FaIcon(FontAwesomeIcons.handsHelping),
+          lable: 'Help',
+          onTap: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => HelpPage())),
+        ),
+        ProfileContentCard(
+          icon: FaIcon(FontAwesomeIcons.signOutAlt),
+          lable: 'Logout',
+          onTap: () => Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => Walkthrough())),
+        ),
+      ],
+    ));
+  }
+}
+
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      child: Row(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Image.asset(
+              'assets/img/walk1.png',
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Gugsi',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                'Joined 2 weeks ago',
+                style: TextStyle(fontSize: 15),
+              )
+            ],
+          ))
+        ],
+      ),
+    );
+  }
+}

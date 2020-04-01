@@ -47,7 +47,7 @@ class BestFoodCard extends StatelessWidget {
                   rating: initialRating,
                   direction: Axis.horizontal,
                   itemCount: 5,
-                  itemSize: 25,
+                  itemSize: 20,
                   unratedColor: Colors.green.shade100,
                   itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
                   itemBuilder: (context, _) => Icon(

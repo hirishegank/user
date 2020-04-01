@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:user/screens/home_page.dart';
 import 'package:user/screens/order_page.dart';
+import 'package:user/screens/profile_page.dart';
 
 import 'cart_items.dart';
 
@@ -20,12 +21,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     HomePage(),
     CartPage(),
     OrderPage(),
-    Center(
-      child: Text(
-        'Profile',
-        style: optionStyle,
-      ),
-    ),
+    ViewProfilePage(),
   ];
 
   void _onItemTapped(int index) {
