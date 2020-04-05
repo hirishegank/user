@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user/components/order_card.dart';
 import 'package:user/screens/order_confirmation.dart';
 

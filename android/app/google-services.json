@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "319478776626",
+    "firebase_url": "https://hiri-app-48dcf.firebaseio.com",
+    "project_id": "hiri-app-48dcf",
+    "storage_bucket": "hiri-app-48dcf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319478776626:android:7ff5fe0151ab4772c10d2b",
+        "android_client_info": {
+          "package_name": "com.user.hiri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319478776626-22ouhi9g3luo3sc9aa86lus7th2jpg6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH2XAAmhnh10PvW11XUg7zsskIU-OSGvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319478776626-22ouhi9g3luo3sc9aa86lus7th2jpg6l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
