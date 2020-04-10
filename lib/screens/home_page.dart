@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:user/components/best_food_card.dart';
 import 'package:user/components/home_category_buttom.dart';
@@ -13,6 +15,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String searchText;
+  FirebaseUser _firebaseUser;
+  String userName = '';
+
+  void getCurrentUser() async {
+    _firebaseUser = await FirebaseAuth.instance.currentUser();
+    final userDetails = await Firestore.instance
+        .collection('user')
+        .document(_firebaseUser.uid)
+        .get();
+    setState(() {
+      userName = userDetails['name'];
+    });
+  }
+
+  @override
+  void initState() {
+    getCurrentUser();
+    super.initState();
+  }
 
   Future showCustomModal(BuildContext context) {
     return showModalBottomSheet(
@@ -57,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20, top: 30),
                 child: Text(
-                  'Hi Gugsi !',
+                  'Hi ${userName} !',
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                   ),
@@ -148,34 +169,28 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             height: 250,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                PopularFoodCard(
-                  initialRating: 2.5,
-                  numberOfRators: 200,
-                ),
-                PopularFoodCard(
-                  initialRating: 2.5,
-                  numberOfRators: 200,
-                ),
-                PopularFoodCard(
-                  initialRating: 2.5,
-                  numberOfRators: 200,
-                ),
-                PopularFoodCard(
-                  initialRating: 2.5,
-                  numberOfRators: 200,
-                ),
-                PopularFoodCard(
-                  initialRating: 2.5,
-                  numberOfRators: 200,
-                ),
-                PopularFoodCard(
-                  initialRating: 2.5,
-                  numberOfRators: 200,
-                ),
-              ],
+            child: StreamBuilder(
+              builder: (context, snapShot) {
+                if (!snapShot.hasData) return Text('No Data');
+                return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapShot.data.documents.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot ds = snapShot.data.documents[index];
+
+                      return PopularFoodCard(
+                          primaryKey: ds.documentID,
+                          foodName: ds['food_name'],
+                          initialRating: ds['rating'].toDouble(),
+                          numberOfRators: ds['number_of_rating']);
+                    });
+              },
+              stream: Firestore.instance
+                  .collection("food")
+                  .where('rating',
+                      isGreaterThanOrEqualTo:
+                          4.2) //best foods have a rating of 4.2 or above
+                  .snapshots(),
             ),
           ),
           SizedBox(
@@ -191,26 +206,26 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 20,
           ),
-          BestFoodCard(
-            initialRating: 2.5,
-          ),
-          BestFoodCard(
-            initialRating: 2.5,
-          ),
-          BestFoodCard(
-            initialRating: 2.5,
-          ),
-          BestFoodCard(
-            initialRating: 2.5,
-          ),
-          BestFoodCard(
-            initialRating: 2.5,
-          ),
-          BestFoodCard(
-            initialRating: 2.5,
-          ),
-          BestFoodCard(
-            initialRating: 2.5,
+          StreamBuilder(
+            builder: (context, snapShot) {
+              if (!snapShot.hasData) return Text('No Data');
+              List<BestFoodCard> bestFoods = [];
+              bestFoods = snapShot.data.documents.map<BestFoodCard>((f) {
+                String ingrediants = f['ingrediance'] != null
+                    ? f['ingrediance']
+                        .toString()
+                        .substring(1, f['ingrediance'].toString().length - 1)
+                    : 'No details';
+                return BestFoodCard(
+                  ingrediants: ingrediants,
+                  primaryKey: f.documentID,
+                  foodName: f['food_name'],
+                  initialRating: f['rating'],
+                );
+              }).toList();
+              return Column(children: bestFoods);
+            },
+            stream: Firestore.instance.collection("food").snapshots(),
           ),
         ],
       ),

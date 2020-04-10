@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:user/components/big_button.dart';
-import 'package:user/screens/success_registration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
+
+import 'package:user/screens/profile_creation.dart';
+
+import 'bottom_navigation.dart';
 
 class MobileVerificationPage extends StatefulWidget {
   const MobileVerificationPage({Key key}) : super(key: key);
@@ -18,17 +22,6 @@ class _MobileVerificationPageState extends State<MobileVerificationPage> {
   FirebaseUser _firebaseUser;
   var _verificationId;
 
-  Future<void> _logout() async {
-    /// Method to Logout the `FirebaseUser` (`_firebaseUser`)
-    try {
-      // signout code
-      await FirebaseAuth.instance.signOut();
-      _firebaseUser = null;
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
   Future<void> _login() async {
     /// This method is used to login the user
     /// `AuthCredential`(`_phoneAuthCredential`) is needed for the signIn method
@@ -39,6 +32,10 @@ class _MobileVerificationPageState extends State<MobileVerificationPage> {
           .then((AuthResult authRes) {
         _firebaseUser = authRes.user;
         print(_firebaseUser.toString());
+        //move to create profile page after successful OTP provided
+
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => ProfilePage(phoneNo: this.phoneNo)));
       });
     } catch (e) {
       print(e.toString());
@@ -110,6 +107,20 @@ class _MobileVerificationPageState extends State<MobileVerificationPage> {
       codeSent: codeSent,
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     );
+  }
+
+  void getCurrentUserForRouting() async {
+    _firebaseUser = await FirebaseAuth.instance.currentUser();
+
+    if (_firebaseUser != null)
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => BottomNavigation()));
+  }
+
+  @override
+  void initState() {
+    getCurrentUserForRouting();
+    super.initState();
   }
 
   @override

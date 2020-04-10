@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
@@ -51,123 +52,153 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(20.0),
-              child: Image.asset(
-                'assets/img/foodSample.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Thalapakatti Biriyani',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+          child: StreamBuilder(
+        builder: (context, snapShot) {
+          if (snapShot.hasData) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(20.0),
+                  child: Image.asset(
+                    'assets/img/foodSample.png',
+                    fit: BoxFit.cover,
                   ),
-                  Text(
-                    'RS.400.00',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CookDetailsPage()));
-                    },
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Cooked by ',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Muli',
-                            fontSize: 20),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: 'Shan',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  RatingBarIndicator(
-                    rating: 4.5,
-                    direction: Axis.horizontal,
-                    itemCount: 5,
-                    itemSize: 25,
-                    unratedColor: Colors.green.shade100,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: Colors.green,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ListView(
-                  children: <Widget>[
-                    Text(
-                      'Descritpion',
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'tempting food words activate simulations of eating the food, including simulations of the taste and texture of the food, simulations of eating situations, and simulations of hedonic enjoyment ',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Ingredients',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Ingredients rice, chicken, pudina, coriander leaves, onions, ginger garlic paste, chilli powder, turmeric powder, chicken masala, coriander powder, garam masala, biriyani leaves, curd, lemon',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: renderButton(),
-            ),
-          ],
-        ),
-      ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        snapShot.data['food_name'],
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 20),
+                      ),
+                      Text(
+                        'LKR ${snapShot.data['price'].toStringAsFixed(2)}',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CookDetailsPage()));
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'Cooked by ',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Muli',
+                                fontSize: 20),
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Shan',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      RatingBarIndicator(
+                        rating: snapShot.data['rating'],
+                        direction: Axis.horizontal,
+                        itemCount: 5,
+                        itemSize: 25,
+                        unratedColor: Colors.green.shade100,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: ListView(
+                      children: <Widget>[
+                        Text(
+                          'Descritpion',
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        snapShot.data['description'] != null
+                            ? Text(
+                                snapShot.data['description'],
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            : Text(
+                                'No description',
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Ingredients',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        snapShot.data['ingrediance'] != null
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: snapShot.data['ingrediance']
+                                    .map<Text>(
+                                      (f) => Text(
+                                        f,
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    )
+                                    .toList(),
+                              )
+                            : Text(
+                                'No details',
+                                style: TextStyle(color: Colors.grey),
+                              )
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: renderButton(),
+                ),
+              ],
+            );
+          }
+          return Text('loading...');
+        },
+        stream: Firestore.instance
+            .collection("food")
+            .document(this.widget.primaryKey)
+            .snapshots(),
+      )),
     );
   }
 }

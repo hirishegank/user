@@ -5,7 +5,13 @@ import 'package:user/screens/item_details.dart';
 class BestFoodCard extends StatelessWidget {
   final String primaryKey;
   final double initialRating;
-  const BestFoodCard({this.primaryKey, @required this.initialRating});
+  final String foodName;
+  final String ingrediants;
+  const BestFoodCard(
+      {this.primaryKey,
+      @required this.initialRating,
+      @required this.foodName,
+      this.ingrediants = 'No details'});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,7 @@ class BestFoodCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: Text(
-                    'Food Name',
+                    foodName,
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -72,7 +78,7 @@ class BestFoodCard extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'Ingrediants goes here.....',
+                  ingrediants,
                   style: TextStyle(color: Colors.grey.shade700, fontSize: 15),
                 )
               ],

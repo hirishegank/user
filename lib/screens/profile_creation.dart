@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:user/components/big_button.dart';
 import 'bottom_navigation.dart';
@@ -13,6 +15,40 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String name;
   String otherDetails;
+  FirebaseUser _firebaseUser;
+  final db = Firestore.instance;
+
+  void getCurrentUser() async {
+    _firebaseUser = await FirebaseAuth.instance.currentUser();
+    checkAlreadyRegistered();
+  }
+
+  void registerUser() {
+    db.collection("user").document(_firebaseUser.uid).setData({
+      'name': name,
+      'otherDetails': otherDetails,
+      'phoneNo': this.widget.phoneNo
+    });
+  }
+
+  void checkAlreadyRegistered() async {
+    final snapShot = await Firestore.instance
+        .collection('user')
+        .document(_firebaseUser.uid)
+        .get();
+
+    //if  registered
+    if (snapShot != null || snapShot.exists) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => BottomNavigation()));
+    }
+  }
+
+  @override
+  void initState() {
+    getCurrentUser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       text: 'Save',
                       onPressed: () {
                         print('pressed');
+                        registerUser(); //register user to the firestore
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => BottomNavigation()));
                       },

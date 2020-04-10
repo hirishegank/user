@@ -6,8 +6,10 @@ class PopularFoodCard extends StatelessWidget {
   final String primaryKey;
   final double initialRating;
   final int numberOfRators;
+  final String foodName;
   const PopularFoodCard(
       {this.primaryKey,
+      @required this.foodName,
       @required this.initialRating,
       @required this.numberOfRators});
 
@@ -38,8 +40,8 @@ class PopularFoodCard extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                'Food Name',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                this.foodName,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               CustomRatingBarPopularFood(
                 initialRating: initialRating,
