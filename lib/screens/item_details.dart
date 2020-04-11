@@ -79,10 +79,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                             fit: BoxFit.cover,
                           );
                         }
-                        return Image.asset(
-                          'assets/img/foodSample.png',
-                          fit: BoxFit.cover,
-                        );
+                        return Center(child: CircularProgressIndicator());
                       }),
                 ),
                 Padding(

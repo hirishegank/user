@@ -53,10 +53,7 @@ class PopularFoodCard extends StatelessWidget {
                         fit: BoxFit.cover,
                       );
                     }
-                    return Image.asset(
-                      'assets/img/foodSample.png',
-                      fit: BoxFit.cover,
-                    );
+                    return Center(child: CircularProgressIndicator());
                   }),
               SizedBox(
                 height: 20,
