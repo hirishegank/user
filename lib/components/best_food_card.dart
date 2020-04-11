@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user/screens/item_details.dart';
@@ -7,11 +8,21 @@ class BestFoodCard extends StatelessWidget {
   final double initialRating;
   final String foodName;
   final String ingrediants;
+  final String imgUrl;
   const BestFoodCard(
       {this.primaryKey,
+      this.imgUrl,
       @required this.initialRating,
       @required this.foodName,
       this.ingrediants = 'No details'});
+
+  Future<String> getImageUrl() async {
+    // print(imgUrl);
+    String url;
+    url = await FirebaseStorage.instance.ref().child(imgUrl).getDownloadURL();
+
+    return url;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +40,21 @@ class BestFoodCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Image.asset(
-              'assets/img/foodSample.png',
-              fit: BoxFit.fitWidth,
-            ),
+            FutureBuilder(
+                future: getImageUrl(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  if (snapshot.hasData) {
+                    return Image.network(
+                      snapshot.data,
+                      fit: BoxFit.cover,
+                    );
+                  }
+                  return Image.asset(
+                    'assets/img/foodSample.png',
+                    fit: BoxFit.cover,
+                  );
+                }),
             SizedBox(
               height: 10,
             ),

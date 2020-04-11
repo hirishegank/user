@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
@@ -28,6 +29,14 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
         });
       },
     );
+  }
+
+  Future<String> getImageUrl(String imgUrl) async {
+    // print(imgUrl);
+    String url;
+    url = await FirebaseStorage.instance.ref().child(imgUrl).getDownloadURL();
+
+    return url;
   }
 
   @override
@@ -60,10 +69,21 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.all(20.0),
-                  child: Image.asset(
-                    'assets/img/foodSample.png',
-                    fit: BoxFit.cover,
-                  ),
+                  child: FutureBuilder(
+                      future: getImageUrl(snapShot.data['imgUrl']),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> future_snapshot) {
+                        if (future_snapshot.hasData) {
+                          return Image.network(
+                            future_snapshot.data,
+                            fit: BoxFit.cover,
+                          );
+                        }
+                        return Image.asset(
+                          'assets/img/foodSample.png',
+                          fit: BoxFit.cover,
+                        );
+                      }),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),

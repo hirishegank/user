@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:user/components/best_food_card.dart';
 import 'package:user/components/home_category_buttom.dart';
@@ -177,8 +178,9 @@ class _HomePageState extends State<HomePage> {
                     itemCount: snapShot.data.documents.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapShot.data.documents[index];
-
+                      // print(ds['imgUrl']);
                       return PopularFoodCard(
+                          imgUrl: ds['imgUrl'],
                           primaryKey: ds.documentID,
                           foodName: ds['food_name'],
                           initialRating: ds['rating'].toDouble(),
@@ -217,6 +219,7 @@ class _HomePageState extends State<HomePage> {
                         .substring(1, f['ingrediance'].toString().length - 1)
                     : 'No details';
                 return BestFoodCard(
+                  imgUrl: f['imgUrl'],
                   ingrediants: ingrediants,
                   primaryKey: f.documentID,
                   foodName: f['food_name'],
