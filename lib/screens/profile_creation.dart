@@ -38,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
         .get();
 
     //if  registered
-    if (snapShot != null || snapShot.exists) {
+    if (snapShot.exists) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => BottomNavigation()));
     }
