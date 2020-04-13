@@ -47,6 +47,8 @@ class BestFoodCard extends StatelessWidget {
                   if (snapshot.hasData) {
                     return Image.network(
                       snapshot.data,
+                      width: MediaQuery.of(context).size.width,
+                      height: 250,
                       fit: BoxFit.cover,
                     );
                   }

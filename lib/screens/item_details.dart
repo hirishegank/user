@@ -76,6 +76,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                         if (future_snapshot.hasData) {
                           return Image.network(
                             future_snapshot.data,
+                            width: MediaQuery.of(context).size.width,
+                            height: 250,
                             fit: BoxFit.cover,
                           );
                         }

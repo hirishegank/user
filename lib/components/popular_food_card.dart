@@ -50,6 +50,8 @@ class PopularFoodCard extends StatelessWidget {
                     if (snapshot.hasData) {
                       return Image.network(
                         snapshot.data,
+                        width: MediaQuery.of(context).size.width,
+                        height: 150,
                         fit: BoxFit.cover,
                       );
                     }
