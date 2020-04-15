@@ -5,8 +5,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:user/components/big_button.dart';
+import 'package:user/models/food.dart';
 import 'package:user/screens/cart_items.dart';
 import 'package:user/screens/cook_details.dart';
+import 'package:user/models/cart.dart';
 
 class FoodDetailPage extends StatefulWidget {
   final String primaryKey;
@@ -17,16 +19,32 @@ class FoodDetailPage extends StatefulWidget {
 }
 
 class _FoodDetailPageState extends State<FoodDetailPage> {
+  Food food = Food();
   bool addeddToChart = false;
 
-  Widget renderButton() {
+  Widget renderButton(var foodSnapshot) {
+    try {
+      this.addeddToChart = cart.foods
+                  .where((f) => f.id == this.widget.primaryKey)
+                  .toList()
+                  .first ==
+              null
+          ? false
+          : true;
+    } catch (e) {
+      this.addeddToChart = false;
+    }
+    // print(this.addeddToChart);
     return BigButton(
       fontsize: 20,
       text: addeddToChart == false ? 'Add to cart' : 'Added to cart',
       onPressed: () {
-        setState(() {
-          addeddToChart = !addeddToChart;
-        });
+        if (!addeddToChart) {
+          cart.foods.add(this.food);
+          setState(() {
+            this.addeddToChart = true;
+          });
+        }
       },
     );
   }
@@ -64,6 +82,11 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
           child: StreamBuilder(
         builder: (context, snapShot) {
           if (snapShot.hasData) {
+            this.food.chefId = snapShot.data['chef_id'];
+            this.food.id = this.widget.primaryKey;
+            this.food.price = snapShot.data['price'];
+            this.food.quantity = 1;
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -206,7 +229,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: renderButton(),
+                  child: renderButton(snapShot.data),
                 ),
               ],
             );
