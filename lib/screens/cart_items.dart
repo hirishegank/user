@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
@@ -181,6 +182,15 @@ class CartItemCard extends StatefulWidget {
 class _CartItemCardState extends State<CartItemCard> {
   double ammount = 400;
   int quantity = 1;
+
+  Future<String> getImageUrl(String imgUrl) async {
+    // print(imgUrl);
+    String url;
+    url = await FirebaseStorage.instance.ref().child(imgUrl).getDownloadURL();
+
+    return url;
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -208,15 +218,23 @@ class _CartItemCardState extends State<CartItemCard> {
                   children: <Widget>[
                     Expanded(
                       flex: 3,
-                      child: Container(
-                        padding: EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          'assets/img/cartFoodSample.png',
-                          fit: BoxFit.cover,
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)),
-                      ),
+                      child: FutureBuilder(
+                          future: getImageUrl(snapshot.data['imgUrl']),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<String> future_snapshot) {
+                            if (future_snapshot.hasData) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  future_snapshot.data,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }),
                     ),
                     Expanded(
                       flex: 5,
