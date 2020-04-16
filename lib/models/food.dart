@@ -5,8 +5,15 @@ class Food {
   String chefId;
   String removedIngrediants;
   String extraNote;
+  String deliveryOption;
+  String address;
+  DateTime dineIn;
+
   Food(
-      {this.id,
+      {this.dineIn,
+      this.address,
+      this.deliveryOption,
+      this.id,
       this.quantity,
       this.price,
       this.chefId,

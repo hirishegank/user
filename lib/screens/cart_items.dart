@@ -13,6 +13,7 @@ import 'package:user/screens/bottom_navigation.dart';
 import 'package:user/screens/customize_screen.dart';
 import 'package:user/screens/delivery_option.dart';
 import 'package:user/screens/dinein_option.dart';
+import 'dart:math';
 
 class CartPage extends StatefulWidget {
   @override
@@ -26,6 +27,15 @@ class _CartPageState extends State<CartPage> {
 
   void getCurrentUser() async {
     _firebaseUser = await FirebaseAuth.instance.currentUser();
+  }
+
+  String _randomString(int length) {
+    var rand = new Random();
+    var codeUnits = new List.generate(length, (index) {
+      return rand.nextInt(33) + 89;
+    });
+
+    return new String.fromCharCodes(codeUnits);
   }
 
   CartItemCard foodListBuilder(food) {
@@ -58,6 +68,10 @@ class _CartPageState extends State<CartPage> {
         .map((food) {
           print(food.removedIngrediants);
           return {
+            'qr_code': _randomString(20),
+            'dine_in': food.dineIn,
+            'delivery_address': food.address,
+            'delivery_opthion': food.deliveryOption,
             'chef_id': food.chefId,
             'food_id': food.id,
             'removed_ingrediance': food.removedIngrediants,
@@ -373,7 +387,11 @@ class _CartItemCardState extends State<CartItemCard> {
                     CategoryIconButton(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => DeliveryOptionPage()));
+                            builder: (context) => DeliveryOptionPage(
+                                  deliveryFee:
+                                      snapshot.data['price'] * quantity * 0.1,
+                                  foodId: this.widget.foodId,
+                                )));
                       },
                       image: 'assets/icon/deliveryopt.png',
                       lable: 'Delivery Option',
@@ -381,7 +399,11 @@ class _CartItemCardState extends State<CartItemCard> {
                     CategoryIconButton(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => DineInOptionPage()));
+                            builder: (context) => DineInOptionPage(
+                                  dineInCost:
+                                      snapshot.data['price'] * quantity * 0.2,
+                                  foodId: this.widget.foodId,
+                                )));
                       },
                       image: 'assets/icon/dinein.png',
                       lable: 'Dine In',

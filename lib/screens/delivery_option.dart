@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:user/components/big_button.dart';
+import 'package:user/models/cart.dart';
 
 class DeliveryOptionPage extends StatefulWidget {
-  const DeliveryOptionPage();
+  final String foodId;
+  final double deliveryFee;
+  const DeliveryOptionPage({this.foodId, this.deliveryFee});
+
   @override
   _DeliveryOptionPageState createState() => _DeliveryOptionPageState();
 }
 
 class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
   bool _isDoorStep = true;
+  String address;
+  String deliveryOption;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +34,9 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
+                  onChanged: (value) {
+                    this.address = value;
+                  },
                   maxLines: 5,
                   decoration: InputDecoration(
                     filled: true,
@@ -103,6 +112,9 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                           onTap: () {
                             setState(() {
                               _isDoorStep = !_isDoorStep;
+                              this.deliveryOption = _isDoorStep
+                                  ? 'Door step pickup'
+                                  : 'Door Delivery';
                             });
                           },
                           child: Container(
@@ -141,7 +153,8 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text('Delivery Fee'),
-                        Text('LKR 100.00')
+                        Text(
+                            'LKR ${this.widget.deliveryFee.toStringAsFixed(2)}')
                       ],
                     )
                   ],
@@ -156,7 +169,15 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                 child: BigButton(
                   text: 'Save',
                   onPressed: () {
-                    print('Save');
+                    var food = cart.foods
+                        .where((food) => food.id == this.widget.foodId)
+                        .toList()
+                        .first;
+
+                    var index = cart.foods.indexOf(food);
+                    cart.foods[index].deliveryOption = this.deliveryOption;
+                    cart.foods[index].address = this.address;
+                    print(cart.foods[index].deliveryOption);
                     Navigator.of(context).pop();
                   },
                 ),

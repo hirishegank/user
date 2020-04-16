@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:user/components/big_button.dart';
+import 'package:user/models/cart.dart';
 
 class DineInOptionPage extends StatefulWidget {
-  const DineInOptionPage();
+  final String foodId;
+  final double dineInCost;
+  const DineInOptionPage({this.foodId, this.dineInCost});
   @override
   _DineInOptionPageState createState() => _DineInOptionPageState();
 }
@@ -126,7 +129,7 @@ class _DineInOptionPageState extends State<DineInOptionPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Dining Cost'),
-                    Text('LKR 900.00'),
+                    Text('LKR ${this.widget.dineInCost.toStringAsFixed(2)}'),
                   ],
                 ),
               ),
@@ -136,7 +139,13 @@ class _DineInOptionPageState extends State<DineInOptionPage> {
                 child: BigButton(
                   text: 'Save',
                   onPressed: () {
-                    print('Save');
+                    var food = cart.foods
+                        .where((food) => food.id == this.widget.foodId)
+                        .toList()
+                        .first;
+
+                    var index = cart.foods.indexOf(food);
+                    cart.foods[index].dineIn = this.dateTime;
                     Navigator.of(context).pop();
                   },
                 ),
