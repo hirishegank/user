@@ -52,12 +52,12 @@ class OrderConfirmPage extends StatelessWidget {
                       child: FutureBuilder(
                           future: getImageUrl(snapshot.data['imgUrl']),
                           builder: (BuildContext context,
-                              AsyncSnapshot<String> future_snapshot) {
-                            if (future_snapshot.hasData) {
+                              AsyncSnapshot<String> futureSnapshot) {
+                            if (futureSnapshot.hasData) {
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  future_snapshot.data,
+                                  futureSnapshot.data,
                                   colorBlendMode: BlendMode.saturation,
                                   color: isPast
                                       ? Colors.black
@@ -94,7 +94,9 @@ class OrderConfirmPage extends StatelessWidget {
                         return GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => CookDetailsPage()));
+                                builder: (context) => CookDetailsPage(
+                                      chefId: snapshot.data['chef_id'],
+                                    )));
                           },
                           child: RichText(
                             text: TextSpan(

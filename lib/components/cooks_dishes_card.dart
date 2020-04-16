@@ -3,11 +3,12 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user/screens/item_details.dart';
 
 class CooksDishedCard extends StatelessWidget {
-  final String primaryKey;
-
+  final String foodId;
+  final String chefId;
   final double initialRating;
 
-  const CooksDishedCard({this.primaryKey, @required this.initialRating});
+  const CooksDishedCard(
+      {this.foodId, @required this.initialRating, this.chefId});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CooksDishedCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => FoodDetailPage(
-                  primaryKey: this.primaryKey,
+                  foodId: this.foodId,
                 )));
       },
       child: Container(

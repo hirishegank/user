@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -14,6 +15,14 @@ class OrderCards extends StatelessWidget {
       this.foodId,
       this.isAccepted})
       : super(key: key);
+
+  Future<String> getImageUrl(String imgUrl) async {
+    // print(imgUrl);
+    String url;
+    url = await FirebaseStorage.instance.ref().child(imgUrl).getDownloadURL();
+
+    return url;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +58,23 @@ class OrderCards extends StatelessWidget {
                         width: 100,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/img/foodSample.png',
-                            colorBlendMode: BlendMode.saturation,
-                            color: isPast ? Colors.black : Colors.transparent,
-                            fit: BoxFit.cover,
-                          ),
+                          child: FutureBuilder(
+                              future: getImageUrl(snapshot.data['imgUrl']),
+                              builder: (context, futureSnapshot) {
+                                if (futureSnapshot.hasData) {
+                                  return Image.network(
+                                    futureSnapshot.data,
+                                    colorBlendMode: BlendMode.saturation,
+                                    color: isPast
+                                        ? Colors.black
+                                        : Colors.transparent,
+                                    fit: BoxFit.cover,
+                                  );
+                                }
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }),
                         ),
                       ),
                     ),

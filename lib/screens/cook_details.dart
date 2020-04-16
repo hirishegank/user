@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
@@ -141,28 +142,21 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
             ),
             Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Wrap(
-                  children: <Widget>[
-                    CooksDishedCard(
-                      initialRating: 2.5,
-                    ),
-                    CooksDishedCard(
-                      initialRating: 2.5,
-                    ),
-                    CooksDishedCard(
-                      initialRating: 2.5,
-                    ),
-                    CooksDishedCard(
-                      initialRating: 2.5,
-                    ),
-                    CooksDishedCard(
-                      initialRating: 2.5,
-                    ),
-                    CooksDishedCard(
-                      initialRating: 2.5,
-                    ),
-                  ],
-                ))
+                child: StreamBuilder(
+                    stream: Firestore.instance
+                        .collection('food')
+                        .where('chef_id', isEqualTo: this.widget.chefId)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      return Wrap(
+                          children: snapshot.data.documents
+                              .map<CooksDishedCard>((food) {
+                        return CooksDishedCard(
+                          initialRating: food['rating'],
+                          foodId: food.documentID,
+                        );
+                      }).toList());
+                    }))
           ],
         ),
       ),

@@ -41,6 +41,7 @@ class _CartPageState extends State<CartPage> {
   CartItemCard foodListBuilder(food) {
     int index = cart.foods.indexOf(food);
     return CartItemCard(
+      qty: food.quantity,
       foodId: food.id,
       index: index,
       changeSum: _setTotal,
@@ -185,7 +186,9 @@ class CartItemCard extends StatefulWidget {
   final String foodId;
   final int index;
   final Function changeSum;
+  final int qty;
   const CartItemCard({
+    this.qty,
     this.foodId,
     Key key,
     this.index,
@@ -206,6 +209,12 @@ class _CartItemCardState extends State<CartItemCard> {
     url = await FirebaseStorage.instance.ref().child(imgUrl).getDownloadURL();
 
     return url;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.quantity = cart.foods[this.widget.index].quantity;
   }
 
   @override

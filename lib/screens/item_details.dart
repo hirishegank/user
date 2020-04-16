@@ -11,8 +11,8 @@ import 'package:user/screens/cook_details.dart';
 import 'package:user/models/cart.dart';
 
 class FoodDetailPage extends StatefulWidget {
-  final String primaryKey;
-  FoodDetailPage({this.primaryKey});
+  final String foodId;
+  FoodDetailPage({this.foodId});
 
   @override
   _FoodDetailPageState createState() => _FoodDetailPageState();
@@ -24,13 +24,11 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
 
   Widget renderButton(var foodSnapshot) {
     try {
-      this.addeddToChart = cart.foods
-                  .where((f) => f.id == this.widget.primaryKey)
-                  .toList()
-                  .first ==
-              null
-          ? false
-          : true;
+      this.addeddToChart =
+          cart.foods.where((f) => f.id == this.widget.foodId).toList().first ==
+                  null
+              ? false
+              : true;
     } catch (e) {
       this.addeddToChart = false;
     }
@@ -83,7 +81,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
         builder: (context, snapShot) {
           if (snapShot.hasData) {
             this.food.chefId = snapShot.data['chef_id'];
-            this.food.id = this.widget.primaryKey;
+            this.food.id = this.widget.foodId;
             this.food.price = snapShot.data['price'];
             this.food.quantity = 1;
 
@@ -238,7 +236,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
         },
         stream: Firestore.instance
             .collection("food")
-            .document(this.widget.primaryKey)
+            .document(this.widget.foodId)
             .snapshots(),
       )),
     );

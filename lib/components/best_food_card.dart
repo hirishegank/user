@@ -30,7 +30,7 @@ class BestFoodCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => FoodDetailPage(
-                  primaryKey: this.primaryKey,
+                  foodId: this.primaryKey,
                 )));
       },
       child: Container(

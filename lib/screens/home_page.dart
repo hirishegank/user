@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                       // print(ds['imgUrl']);
                       return PopularFoodCard(
                           imgUrl: ds['imgUrl'],
-                          primaryKey: ds.documentID,
+                          foodId: ds.documentID,
                           foodName: ds['food_name'],
                           initialRating: ds['rating'].toDouble(),
                           numberOfRators: ds['number_of_rating']);

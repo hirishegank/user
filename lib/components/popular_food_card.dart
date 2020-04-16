@@ -4,13 +4,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:user/screens/item_details.dart';
 
 class PopularFoodCard extends StatelessWidget {
-  final String primaryKey;
+  final String foodId;
   final double initialRating;
   final int numberOfRators;
   final String foodName;
   final String imgUrl;
   const PopularFoodCard(
-      {this.primaryKey,
+      {this.foodId,
       this.imgUrl,
       @required this.foodName,
       @required this.initialRating,
@@ -30,7 +30,7 @@ class PopularFoodCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => FoodDetailPage(
-                  primaryKey: this.primaryKey,
+                  foodId: this.foodId,
                 )));
       },
       child: Padding(
