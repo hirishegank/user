@@ -95,10 +95,10 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                   child: FutureBuilder(
                       future: getImageUrl(snapShot.data['imgUrl']),
                       builder: (BuildContext context,
-                          AsyncSnapshot<String> future_snapshot) {
-                        if (future_snapshot.hasData) {
+                          AsyncSnapshot<String> futureSnapshot) {
+                        if (futureSnapshot.hasData) {
                           return Image.network(
-                            future_snapshot.data,
+                            futureSnapshot.data,
                             width: MediaQuery.of(context).size.width,
                             height: 250,
                             fit: BoxFit.cover,

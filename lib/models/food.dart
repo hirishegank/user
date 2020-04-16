@@ -3,5 +3,13 @@ class Food {
   String id;
   double price;
   String chefId;
-  Food({this.id, this.quantity, this.price, this.chefId});
+  String removedIngrediants;
+  String extraNote;
+  Food(
+      {this.id,
+      this.quantity,
+      this.price,
+      this.chefId,
+      this.removedIngrediants,
+      this.extraNote});
 }

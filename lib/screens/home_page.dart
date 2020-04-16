@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:user/components/best_food_card.dart';
 import 'package:user/components/home_category_buttom.dart';
@@ -79,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20, top: 30),
                 child: Text(
-                  'Hi ${userName} !',
+                  'Hi $userName !',
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                   ),

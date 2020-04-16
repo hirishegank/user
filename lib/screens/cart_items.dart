@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:user/components/big_button.dart';
 
-import 'package:user/components/delete_icon_button.dart';
 import 'package:user/components/home_category_buttom.dart';
 import 'package:user/models/cart.dart';
 import 'package:user/screens/bottom_navigation.dart';
@@ -22,6 +21,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   double total = 0;
+
   FirebaseUser _firebaseUser;
 
   void getCurrentUser() async {
@@ -54,11 +54,14 @@ class _CartPageState extends State<CartPage> {
   }
 
   _hitFirebase() {
-    var foodOrders = cart.foods
+    cart.foods
         .map((food) {
+          print(food.removedIngrediants);
           return {
             'chef_id': food.chefId,
             'food_id': food.id,
+            'removed_ingrediance': food.removedIngrediants,
+            'extran_notes': food.extraNote,
             'delivery_fee': food.price * food.quantity * 0.1,
             'quantity': food.quantity,
             'unit_price': food.price,
@@ -169,7 +172,7 @@ class CartItemCard extends StatefulWidget {
   final int index;
   final Function changeSum;
   const CartItemCard({
-    this.foodId = 'C0eIOF9ZUoKnBSQtGZ4S',
+    this.foodId,
     Key key,
     this.index,
     this.changeSum,
@@ -221,12 +224,12 @@ class _CartItemCardState extends State<CartItemCard> {
                       child: FutureBuilder(
                           future: getImageUrl(snapshot.data['imgUrl']),
                           builder: (BuildContext context,
-                              AsyncSnapshot<String> future_snapshot) {
-                            if (future_snapshot.hasData) {
+                              AsyncSnapshot<String> futureSnapshot) {
+                            if (futureSnapshot.hasData) {
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  future_snapshot.data,
+                                  futureSnapshot.data,
                                   fit: BoxFit.cover,
                                 ),
                               );
@@ -358,7 +361,11 @@ class _CartItemCardState extends State<CartItemCard> {
                     CategoryIconButton(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CustomizeFoodPage()));
+                            builder: (context) => CustomizeFoodPage(
+                                  imgUrl: snapshot.data['imgUrl'],
+                                  foodId: this.widget.foodId,
+                                  ingrediants: snapshot.data['ingrediance'],
+                                )));
                       },
                       image: 'assets/icon/customize.png',
                       lable: 'Customize',

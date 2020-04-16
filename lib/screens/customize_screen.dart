@@ -1,26 +1,22 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:user/components/big_button.dart';
+import 'package:user/models/cart.dart';
 
 class CustomizeFoodPage extends StatefulWidget {
-  final String primaryKey;
+  final String foodId;
+  final List<dynamic> ingrediants;
+  final String imgUrl;
 
-  const CustomizeFoodPage({this.primaryKey});
+  const CustomizeFoodPage({this.foodId, this.ingrediants, this.imgUrl});
   @override
   _CustomizeFoodPageState createState() => _CustomizeFoodPageState();
 }
 
 class _CustomizeFoodPageState extends State<CustomizeFoodPage> {
-  final List<String> ingrediants = [
-    'ingrediant1',
-    'ingrediant2',
-    'ingrediant3',
-    'ingrediant4',
-    'ingrediant5',
-    'ingrediant6',
-    'ingrediant7',
-    'ingrediant8',
-    'ingrediant9',
-  ];
+  List<dynamic> ingrediants;
+  String removedIngrediants = '';
+  String extraNotes = '';
   List<Widget> wingrediants;
   List<Widget> buildIngrediantWidgets() {
     List<Widget> newList = [];
@@ -33,8 +29,17 @@ class _CustomizeFoodPageState extends State<CustomizeFoodPage> {
     return newList;
   }
 
+  Future<String> getImageUrl(String imgUrl) async {
+    // print(imgUrl);
+    String url;
+    url = await FirebaseStorage.instance.ref().child(imgUrl).getDownloadURL();
+
+    return url;
+  }
+
   removeIngrediant(int index) {
-    print(index);
+    removedIngrediants += ingrediants[index] + ',';
+    print(removedIngrediants);
     setState(() {
       wingrediants = List.from(wingrediants)..removeAt(index);
     });
@@ -43,7 +48,8 @@ class _CustomizeFoodPageState extends State<CustomizeFoodPage> {
   @override
   void initState() {
     super.initState();
-    print('init');
+
+    ingrediants = this.widget.ingrediants;
     wingrediants = buildIngrediantWidgets();
   }
 
@@ -71,10 +77,22 @@ class _CustomizeFoodPageState extends State<CustomizeFoodPage> {
                 margin: const EdgeInsets.all(
                   20,
                 ),
-                child: Image.asset(
-                  'assets/img/customizeFoodSample.png',
-                  fit: BoxFit.cover,
-                ),
+                child: FutureBuilder(
+                    future: getImageUrl(this.widget.imgUrl),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<String> futureSnapshot) {
+                      if (futureSnapshot.hasData) {
+                        return Image.network(
+                          futureSnapshot.data,
+                          height: 200,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,
+                        );
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }),
               ),
               SizedBox(
                 height: 10,
@@ -104,6 +122,10 @@ class _CustomizeFoodPageState extends State<CustomizeFoodPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
+                  onChanged: (value) {
+                    this.extraNotes = value;
+                    print(this.extraNotes);
+                  },
                   maxLines: 5,
                   decoration: InputDecoration(
                     filled: true,
@@ -131,7 +153,18 @@ class _CustomizeFoodPageState extends State<CustomizeFoodPage> {
                 child: BigButton(
                   text: 'Save',
                   onPressed: () {
-                    print('Save');
+                    //set the extra_notes and removed ingrediance
+                    var food = cart.foods
+                        .where((food) => food.id == this.widget.foodId)
+                        .toList()
+                        .first;
+
+                    var index = cart.foods.indexOf(food);
+                    cart.foods[index].removedIngrediants = removedIngrediants;
+                    cart.foods[index].extraNote = extraNotes;
+
+                    print(cart.foods[index].removedIngrediants =
+                        removedIngrediants);
                     Navigator.of(context).pop();
                   },
                 ),

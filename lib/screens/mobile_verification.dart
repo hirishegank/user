@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:user/components/big_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
