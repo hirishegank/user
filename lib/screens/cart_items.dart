@@ -214,6 +214,7 @@ class _CartItemCardState extends State<CartItemCard> {
   @override
   void initState() {
     super.initState();
+    print(cart.foods[this.widget.index].quantity);
     this.quantity = cart.foods[this.widget.index].quantity;
   }
 
@@ -253,6 +254,7 @@ class _CartItemCardState extends State<CartItemCard> {
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
                                   futureSnapshot.data,
+                                  height: 100,
                                   fit: BoxFit.cover,
                                 ),
                               );

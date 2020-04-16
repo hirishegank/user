@@ -27,109 +27,123 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
       body: SafeArea(
         child: ListView(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 20.0, right: 5),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: Image.asset(
-                      'assets/img/chef.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            textBaseline: TextBaseline.alphabetic,
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            children: <Widget>[
-                              Text(
-                                'Shan',
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
+            StreamBuilder(
+                stream: Firestore.instance
+                    .collection('chef')
+                    .document(this.widget.chefId)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  return Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20.0, top: 20.0, right: 5),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 2,
+                              child: Image.asset(
+                                'assets/img/chef.png',
+                                fit: BoxFit.cover,
                               ),
-                              SizedBox(
-                                width: 05,
-                              ),
-                              FaIcon(
-                                FontAwesomeIcons.solidCircle,
-                                color: Colors.greenAccent,
-                                size: 15,
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '6+ yrs experience',
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Special in Biriyani, Short eats',
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          RatingBarIndicator(
-                            rating: 4.3,
-                            direction: Axis.horizontal,
-                            itemCount: 5,
-                            itemSize: 25,
-                            unratedColor: Colors.green.shade100,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Colors.green,
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              flex: 3,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Row(
+                                      textBaseline: TextBaseline.alphabetic,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.baseline,
+                                      children: <Widget>[
+                                        Text(
+                                          snapshot.data['name'],
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          width: 05,
+                                        ),
+                                        FaIcon(
+                                          FontAwesomeIcons.solidCircle,
+                                          color: Colors.greenAccent,
+                                          size: 15,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      '6+ yrs experience',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Special in Biriyani, Short eats',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    RatingBarIndicator(
+                                      rating: 4.3,
+                                      direction: Axis.horizontal,
+                                      itemCount: 5,
+                                      itemSize: 25,
+                                      unratedColor: Colors.green.shade100,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 2.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text(
-                'Review',
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              height: MediaQuery.of(context).size.height / 5,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  ReviewCard(),
-                  ReviewCard(),
-                  ReviewCard(),
-                  ReviewCard(),
-                  ReviewCard()
-                ],
-              ),
-            ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          'Review',
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        height: MediaQuery.of(context).size.height / 5,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data['reviews'].length,
+                          itemBuilder: (context, index) {
+                            return ReviewCard();
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                }),
             SizedBox(
               height: 20,
             ),
