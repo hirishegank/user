@@ -119,7 +119,7 @@ class OrderCards extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 RatingBarIndicator(
-                                  rating: snapshot.data['rating'],
+                                  rating: snapshot.data['rating'].toDouble(),
                                   direction: Axis.horizontal,
                                   itemCount: 5,
                                   itemSize: 20,

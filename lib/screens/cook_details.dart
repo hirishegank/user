@@ -33,6 +33,10 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                     .document(this.widget.chefId)
                     .snapshots(),
                 builder: (context, snapshot) {
+                  if (!snapshot.hasData)
+                    Center(
+                      child: CircularProgressIndicator(),
+                    );
                   return Column(
                     children: <Widget>[
                       Padding(
@@ -137,7 +141,16 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                           scrollDirection: Axis.horizontal,
                           itemCount: snapshot.data['reviews'].length,
                           itemBuilder: (context, index) {
-                            return ReviewCard();
+                            String reviewText = snapshot.data['reviews'][index]
+                                        ['review_text'] !=
+                                    null
+                                ? snapshot.data['reviews'][index]['review_text']
+                                : '';
+                            return ReviewCard(
+                              reviewText: reviewText,
+                              reviewerId: snapshot.data['reviews'][index]
+                                  ['user_id'],
+                            );
                           },
                         ),
                       ),

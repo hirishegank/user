@@ -134,7 +134,9 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                       GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CookDetailsPage()));
+                              builder: (context) => CookDetailsPage(
+                                    chefId: snapShot.data['chef_id'],
+                                  )));
                         },
                         child: RichText(
                           text: TextSpan(

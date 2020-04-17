@@ -222,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                   ingrediants: ingrediants,
                   primaryKey: f.documentID,
                   foodName: f['food_name'],
-                  initialRating: f['rating'],
+                  initialRating: f['rating'].toDouble(),
                 );
               }).toList();
               return Column(children: bestFoods);

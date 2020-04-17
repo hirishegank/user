@@ -42,12 +42,14 @@ class _OrderPageState extends State<OrderPage>
     super.dispose();
   }
 
-  void callback(past, foodId, qrCode) {
+  void callback(past, foodId, qrCode, orderId, aleradyReviewd) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => OrderConfirmPage(
               foodId: foodId,
               isPast: past,
               qrCode: qrCode,
+              orderId: orderId,
+              isAlredyReviwed: aleradyReviewd,
             )));
   }
 
@@ -72,7 +74,11 @@ class _OrderPageState extends State<OrderPage>
                           isPast: true,
                           isAccepted: ds.data['status'] == 'on_going',
                           onTap: () => callback(
-                              true, ds.data['food_id'], ds.data['qr_code']));
+                              true,
+                              ds.data['food_id'],
+                              ds.data['qr_code'],
+                              ds.documentID,
+                              ds.data['reviewed']));
                     });
               },
               stream: Firestore.instance
@@ -107,7 +113,11 @@ class _OrderPageState extends State<OrderPage>
                           isPast: false,
                           isAccepted: ds.data['status'] == 'on_going',
                           onTap: () => callback(
-                              false, ds.data['food_id'], ds.data['qr_code']));
+                              false,
+                              ds.data['food_id'],
+                              ds.data['qr_code'],
+                              ds.documentID,
+                              ds.data['reviewed']));
                     });
               },
               stream: Firestore.instance
