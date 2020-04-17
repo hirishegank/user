@@ -112,12 +112,8 @@ class _OrderPageState extends State<OrderPage>
                           foodId: ds.data['food_id'],
                           isPast: false,
                           isAccepted: ds.data['status'] == 'on_going',
-                          onTap: () => callback(
-                              false,
-                              ds.data['food_id'],
-                              ds.data['qr_code'],
-                              ds.documentID,
-                              ds.data['reviewed']));
+                          onTap: () => callback(false, ds.data['food_id'],
+                              ds.data['qr_code'], ds.documentID, true));
                     });
               },
               stream: Firestore.instance

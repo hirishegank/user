@@ -15,6 +15,7 @@ class ReviewCard extends StatelessWidget {
             .document(this.reviewerId)
             .snapshots(),
         builder: (context, snapshot) {
+          print(this.reviewerId);
           if (!snapshot.hasData)
             return Center(
               child: CircularProgressIndicator(),
