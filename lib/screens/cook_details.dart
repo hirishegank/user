@@ -149,7 +149,6 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                               if (!reviewSnapshots.hasData)
                                 return Center(
                                     child: CircularProgressIndicator());
-                              print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
 
                               return ListView(
                                   scrollDirection: Axis.horizontal,
