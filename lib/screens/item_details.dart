@@ -138,21 +138,29 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                     chefId: snapShot.data['chef_id'],
                                   )));
                         },
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'Cooked by ',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Muli',
-                                fontSize: 20),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Shan',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        ),
+                        child: StreamBuilder(
+                            stream: Firestore.instance
+                                .collection('chef')
+                                .document(this.food.chefId)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) return Text('Loading...');
+                              return RichText(
+                                text: TextSpan(
+                                  text: 'Cooked by ',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Muli',
+                                      fontSize: 20),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: snapshot.data['name'],
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              );
+                            }),
                       ),
                       RatingBarIndicator(
                         rating: snapShot.data['rating'],
