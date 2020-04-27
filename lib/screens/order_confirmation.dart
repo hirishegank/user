@@ -80,11 +80,18 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
         .updateData(
             {'rating': newRating, 'number_of_rating': FieldValue.increment(1)});
 
-    Firestore.instance.collection('chef').document(chefId).updateData({
-      "reviews": FieldValue.arrayUnion([
-        {'review_text': this.reviewTxt, 'user_id': _firebaseUser.uid}
-      ])
-    });
+    // Firestore.instance.collection('chef').document(chefId).updateData({
+    //   "reviews": FieldValue.arrayUnion([
+    //     {'review_text': this.reviewTxt, 'user_id': _firebaseUser.uid}
+    //   ])
+    // });
+
+    Firestore.instance
+        .collection('chef')
+        .document(chefId)
+        .collection('reviews')
+        .add({'review_text': this.reviewTxt, 'user_id': _firebaseUser.uid});
+
     setState(() {
       showModal = false;
     });

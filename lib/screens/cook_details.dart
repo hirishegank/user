@@ -37,6 +37,8 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                     Center(
                       child: CircularProgressIndicator(),
                     );
+                  print('testing----------');
+
                   return Column(
                     children: <Widget>[
                       Padding(
@@ -137,22 +139,48 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 20),
                         height: MediaQuery.of(context).size.height / 5,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data['reviews'].length,
-                          itemBuilder: (context, index) {
-                            String reviewText = snapshot.data['reviews'][index]
-                                        ['review_text'] !=
-                                    null
-                                ? snapshot.data['reviews'][index]['review_text']
-                                : '';
-                            return ReviewCard(
-                              reviewText: reviewText,
-                              reviewerId: snapshot.data['reviews'][index]
-                                  ['user_id'],
-                            );
-                          },
-                        ),
+                        child: StreamBuilder(
+                            stream: Firestore.instance
+                                .collection('chef')
+                                .document(this.widget.chefId)
+                                .collection('reviews')
+                                .snapshots(),
+                            builder: (context, reviewSnapshots) {
+                              if (!reviewSnapshots.hasData)
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+
+                              return ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: reviewSnapshots.data.documents
+                                      .map<ReviewCard>((doc) {
+                                    print(doc.data['user_id']);
+                                    return ReviewCard(
+                                      reviewText: doc.data['review_text'],
+                                      reviewerId: doc.data['user_id'],
+                                    );
+                                  }).toList());
+                              // return ListView.builder(
+                              //   scrollDirection: Axis.horizontal,
+                              //   itemCount:
+                              //       reviewSnapshots.data.documents.length,
+                              //   itemBuilder: (context, index) {
+                              //     String reviewText = reviewSnapshots
+                              //                 .data.documents
+                              //                 .toList()[index]['review_text'] !=
+                              //             null
+                              //         ? reviewSnapshots.data['reviews'][index]
+                              //             ['review_text']
+                              //         : '';
+                              //     return ReviewCard(
+                              //       reviewText: reviewText,
+                              //       reviewerId: reviewSnapshots.data['reviews']
+                              //           [index]['user_id'],
+                              //     );
+                              //   },
+                              // );
+                            }),
                       ),
                     ],
                   );
