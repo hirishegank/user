@@ -276,11 +276,14 @@ class _CartItemCardState extends State<CartItemCard> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text(
-                                  snapshot.data['food_name'],
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: Text(
+                                    snapshot.data['food_name'],
+                                    overflow: TextOverflow.visible,
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                                 GestureDetector(
                                   onTap: () {

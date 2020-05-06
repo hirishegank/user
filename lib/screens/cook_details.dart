@@ -154,7 +154,6 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                                   scrollDirection: Axis.horizontal,
                                   children: reviewSnapshots.data.documents
                                       .map<ReviewCard>((doc) {
-                                    print(doc.data['user_id']);
                                     return ReviewCard(
                                       reviewText: doc.data['review_text'],
                                       reviewerId: doc.data['user_id'],

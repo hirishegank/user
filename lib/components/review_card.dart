@@ -55,7 +55,7 @@ class ReviewCard extends StatelessWidget {
                         Text(
                           snapshot.data['name'],
                           style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 10,
@@ -63,7 +63,7 @@ class ReviewCard extends StatelessWidget {
                         Text(
                           this.reviewText,
                           style: TextStyle(color: Colors.grey, fontSize: 15),
-                          overflow: TextOverflow.ellipsis,
+                          // overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
