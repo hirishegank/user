@@ -82,7 +82,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
           if (snapShot.hasData) {
             this.food.chefId = snapShot.data['chef_id'];
             this.food.id = this.widget.foodId;
-            this.food.price = snapShot.data['price'];
+            this.food.price = snapShot.data['price'].toDouble();
             this.food.quantity = 1;
 
             return Column(
@@ -110,10 +110,16 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
-                        snapShot.data['food_name'],
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 20),
+                      Expanded(
+                        child: Text(
+                          snapShot.data['food_name'],
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 20),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
                       ),
                       Text(
                         'LKR ${snapShot.data['price'].toStringAsFixed(2)}',

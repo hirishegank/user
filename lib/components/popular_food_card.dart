@@ -62,7 +62,7 @@ class PopularFoodCard extends StatelessWidget {
               ),
               Text(
                 this.foodName,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               CustomRatingBarPopularFood(
                 initialRating: initialRating,

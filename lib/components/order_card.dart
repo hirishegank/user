@@ -141,10 +141,10 @@ class OrderCards extends StatelessWidget {
                                         .collection('chef')
                                         .document(snapshot.data['chef_id'])
                                         .get(),
-                                    builder: (context, future_snapshot) {
-                                      if (future_snapshot.hasData) {
+                                    builder: (context, futureSnapshot) {
+                                      if (futureSnapshot.hasData) {
                                         return Text(
-                                          future_snapshot.data['name'],
+                                          futureSnapshot.data['name'],
                                           style: TextStyle(
                                               fontSize: 12, color: Colors.grey),
                                         );
