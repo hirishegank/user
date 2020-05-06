@@ -41,23 +41,26 @@ class CooksDishedCard extends StatelessWidget {
             },
             child: Container(
               margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(15),
-              width: MediaQuery.of(context).size.width / 2 - 50,
+              padding: EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width / 2 - 40,
               color: Colors.grey.shade200,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   FutureBuilder(
                       future: getImageUrl(snapshot.data['imgUrl']),
                       builder: (BuildContext context,
                           AsyncSnapshot<String> futureSnapshot) {
                         if (futureSnapshot.hasData) {
-                          return Image.network(
-                            futureSnapshot.data,
-                            height: 150,
-                            width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: Image.network(
+                              futureSnapshot.data,
+                              height: 125,
+                              width: MediaQuery.of(context).size.width,
+                              fit: BoxFit.cover,
+                            ),
                           );
                         }
                         return Center(
@@ -69,6 +72,7 @@ class CooksDishedCard extends StatelessWidget {
                   ),
                   Text(
                     snapshot.data['food_name'],
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Wrap(

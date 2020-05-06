@@ -126,7 +126,7 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
-                          'Review',
+                          'Reviews',
                           style: TextStyle(
                               fontSize: 25,
                               color: Colors.grey,
@@ -202,13 +202,14 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       return Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
                           children: snapshot.data.documents
                               .map<CooksDishedCard>((food) {
-                        return CooksDishedCard(
-                          initialRating: food['rating'],
-                          foodId: food.documentID,
-                        );
-                      }).toList());
+                            return CooksDishedCard(
+                              initialRating: food['rating'],
+                              foodId: food.documentID,
+                            );
+                          }).toList());
                     }))
           ],
         ),
