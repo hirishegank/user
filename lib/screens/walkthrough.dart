@@ -26,13 +26,13 @@ class _WalkthroughState extends State<Walkthrough> {
             color: Color(0xff3da4ab),
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+            fontFamily: 'Muli'),
         description: "Explore\n the\n food culture\n with\n Hiri’s Kitchen",
         styleDescription: TextStyle(
             color: Color(0xfffe9c8f),
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
+            fontFamily: 'Muli'),
         pathImage: "assets/img/walk1.png",
       ),
     );
@@ -43,13 +43,13 @@ class _WalkthroughState extends State<Walkthrough> {
             color: Color(0xff3da4ab),
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+            fontFamily: 'Muli'),
         description: "Authentic\n food\n is on your\n Door step",
         styleDescription: TextStyle(
             color: Color(0xfffe9c8f),
             fontSize: 20.0,
             fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
+            fontFamily: 'Muli'),
         pathImage: "assets/img/walk2.png",
       ),
     );
@@ -60,13 +60,13 @@ class _WalkthroughState extends State<Walkthrough> {
             color: Color(0xff3da4ab),
             fontSize: 30.0,
             fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+            fontFamily: 'Muli'),
         description: "Celebrate\n your\n ordered food !!",
         styleDescription: TextStyle(
             color: Color(0xfffe9c8f),
             fontSize: 40.0,
             fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
+            fontFamily: 'Muli'),
         pathImage: "assets/img/walk3.png",
       ),
     );
@@ -145,8 +145,8 @@ class _WalkthroughState extends State<Walkthrough> {
                       currentSlide.description,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontFamily: 'Pacifico',
-                        fontWeight: FontWeight.w900,
+                        fontFamily: 'Muli',
+                        fontWeight: FontWeight.bold,
                         fontSize: 45,
                         color: Colors.white,
                       ),

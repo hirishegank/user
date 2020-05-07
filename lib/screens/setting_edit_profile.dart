@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SettingsEditPage extends StatefulWidget {
@@ -6,13 +8,27 @@ class SettingsEditPage extends StatefulWidget {
 }
 
 class _SettingsEditPageState extends State<SettingsEditPage> {
-  String name = "Gusgi";
-  String phoneNo = "+94 77 xxx xxxx";
+  String name;
+  String phoneNo = "+94773995161";
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneNoController = TextEditingController();
 
+  FirebaseUser _firebaseUser;
+
+  void getCurrentUser() async {
+    _firebaseUser = await FirebaseAuth.instance.currentUser();
+    final userDetails = await Firestore.instance
+        .collection('user')
+        .document(_firebaseUser.uid)
+        .get();
+    setState(() {
+      this.name = userDetails['name'];
+    });
+  }
+
   @override
   void initState() {
+    getCurrentUser();
     nameController.text = name;
     phoneNoController.text = phoneNo;
     super.initState();
@@ -47,7 +63,7 @@ class _SettingsEditPageState extends State<SettingsEditPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.asset(
-                        'assets/img/walk2.png',
+                        'assets/img/profile.png',
                         height: 200,
                         width: 200,
                         fit: BoxFit.cover,

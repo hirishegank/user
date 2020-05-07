@@ -259,11 +259,12 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                         color: Colors.black45,
                         child: Center(
                           child: Container(
-                              height: MediaQuery.of(context).size.height * 0.6,
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
+                            height: MediaQuery.of(context).size.height * 0.6,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: SingleChildScrollView(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -414,7 +415,9 @@ class _OrderConfirmPageState extends State<OrderConfirmPage> {
                                     ),
                                   )
                                 ],
-                              )),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     )

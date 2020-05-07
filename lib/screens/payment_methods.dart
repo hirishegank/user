@@ -30,7 +30,7 @@ class PaymentsPage extends StatelessWidget {
                 FontAwesomeIcons.wallet,
                 size: 40,
               ),
-              lable: 'Cash',
+              lable: 'Frimi',
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),

@@ -121,38 +121,48 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 15,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              CategoryIconButton(
-                onTap: () {
-                  print('Cakes');
-                },
-                image: 'assets/icon/cake.png',
-                lable: 'Cakes',
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: <Widget>[
+          //     CategoryIconButton(
+          //       onTap: () {
+          //         print('Cakes');
+          //       },
+          //       image: 'assets/icon/cake.png',
+          //       lable: 'Cakes',
+          //     ),
+          //     CategoryIconButton(
+          //       onTap: () {
+          //         print('Sweets');
+          //       },
+          //       image: 'assets/icon/sweet.png',
+          //       lable: 'Sweets',
+          //     ),
+          //     CategoryIconButton(
+          //       onTap: () {
+          //         print('Rice & Curry');
+          //       },
+          //       image: 'assets/icon/rice.png',
+          //       lable: 'Rice & Curry',
+          //     ),
+          //     CategoryIconButton(
+          //       onTap: () {
+          //         print('Bakery');
+          //       },
+          //       image: 'assets/icon/backery.png',
+          //       lable: 'Bakery',
+          //     ),
+          //   ],
+          // ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                'assets/img/banner.png',
+                height: 200,
               ),
-              CategoryIconButton(
-                onTap: () {
-                  print('Sweets');
-                },
-                image: 'assets/icon/sweet.png',
-                lable: 'Sweets',
-              ),
-              CategoryIconButton(
-                onTap: () {
-                  print('Rice & Curry');
-                },
-                image: 'assets/icon/rice.png',
-                lable: 'Rice & Curry',
-              ),
-              CategoryIconButton(
-                onTap: () {
-                  print('Bakery');
-                },
-                image: 'assets/icon/backery.png',
-                lable: 'Bakery',
-              ),
-            ],
+            ),
           ),
           SizedBox(
             height: 30,

@@ -164,10 +164,12 @@ class _MobileVerificationPageState extends State<MobileVerificationPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 45.0),
                       child: TextField(
+                        keyboardType: TextInputType.phone,
                         style: TextStyle(fontSize: 20),
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           hintText: "07X XXX XXXX",
+
                           // labelText: 'Phone Number'
                         ),
                         onChanged: (value) {

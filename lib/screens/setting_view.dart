@@ -1,10 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:user/components/profile_content_card.dart';
 import 'package:user/screens/setting_edit_profile.dart';
 
-class SettingsViewPage extends StatelessWidget {
+class SettingsViewPage extends StatefulWidget {
+  @override
+  _SettingsViewPageState createState() => _SettingsViewPageState();
+}
+
+class _SettingsViewPageState extends State<SettingsViewPage> {
+  FirebaseUser _firebaseUser;
+  String name = "Hiri";
+
+  void getCurrentUser() async {
+    _firebaseUser = await FirebaseAuth.instance.currentUser();
+    final userDetails = await Firestore.instance
+        .collection('user')
+        .document(_firebaseUser.uid)
+        .get();
+    setState(() {
+      this.name = userDetails['name'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +46,7 @@ class SettingsViewPage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: Image.asset(
-                    'assets/img/walk2.png',
+                    'assets/img/profile.png',
                     height: 100,
                     width: 100,
                     fit: BoxFit.cover,
@@ -34,7 +55,7 @@ class SettingsViewPage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                Text('Gugsi'),
+                Text(this.name),
                 SizedBox(
                   height: 10,
                 ),
