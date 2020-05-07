@@ -131,25 +131,25 @@ class _CartPageState extends State<CartPage> {
                       SizedBox(
                         height: 5,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text('Sub Total'),
-                          Text('LKR ${this._getTotal().toStringAsFixed(2)}'),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text('Delivery fee'),
-                          Text(
-                              // 'LKR ${(this._getTotal() * 0.1).toStringAsFixed(2)}'),
-                              'LKR 150.00'),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: <Widget>[
+                      //     Text('Sub Total'),
+                      //     Text('LKR ${this._getTotal().toStringAsFixed(2)}'),
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: <Widget>[
+                      //     Text('Delivery fee'),
+                      //     Text(
+                      //         // 'LKR ${(this._getTotal() * 0.1).toStringAsFixed(2)}'),
+                      //         'LKR 150.00'),
+                      //   ],
+                      // ),
                       SizedBox(
                         height: 20,
                       ),
@@ -163,7 +163,7 @@ class _CartPageState extends State<CartPage> {
                           ),
                           Text(
                             // 'LKR ${(this._getTotal() * 1.1).toStringAsFixed(2)}',
-                            'LKR ${(this._getTotal() + 150).toStringAsFixed(2)}',
+                            'LKR ${(this._getTotal()).toStringAsFixed(2)}',
                             style: TextStyle(
                                 fontSize: 35, fontWeight: FontWeight.bold),
                           ),
