@@ -26,9 +26,9 @@ const kHomeInputDecoration = InputDecoration(
       color: Colors.green,
     ),
   ),
-  suffixIcon: Icon(
-    Icons.arrow_downward,
-    size: 40,
-    color: Colors.green,
-  ),
+  // suffixIcon: Icon(
+  //   Icons.arrow_downward,
+  //   size: 40,
+  //   color: Colors.green,
+  // ),
 );

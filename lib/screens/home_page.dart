@@ -98,18 +98,18 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
                   decoration: kHomeInputDecoration.copyWith(
-                    suffixIcon: InkWell(
-                      onTap: () {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                        showCustomModal(context);
-                      },
-                      child: Icon(
-                        Icons.arrow_downward,
-                        size: 40,
-                        color: Colors.green,
+                      // suffixIcon: InkWell(
+                      //   onTap: () {
+                      //     FocusScope.of(context).requestFocus(FocusNode());
+                      //     showCustomModal(context);
+                      //   },
+                      //   child: Icon(
+                      //     Icons.arrow_downward,
+                      //     size: 40,
+                      //     color: Colors.green,
+                      //   ),
+                      // ),
                       ),
-                    ),
-                  ),
                   onChanged: (value) {
                     searchText = value;
                     print(searchText);

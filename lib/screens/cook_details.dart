@@ -67,8 +67,9 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                                       children: <Widget>[
                                         Text(
                                           snapshot.data['name'],
+                                          overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                              fontSize: 30,
+                                              fontSize: 25,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(
