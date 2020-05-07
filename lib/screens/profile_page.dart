@@ -29,12 +29,12 @@ class ViewProfilePage extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        ProfileContentCard(
-          icon: FaIcon(FontAwesomeIcons.solidHeart),
-          lable: 'Your Favourites',
-          onTap: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => FavouritePage())),
-        ),
+        // ProfileContentCard(
+        //   icon: FaIcon(FontAwesomeIcons.solidHeart),
+        //   lable: 'Your Favourites',
+        //   onTap: () => Navigator.of(context)
+        //       .push(MaterialPageRoute(builder: (context) => FavouritePage())),
+        // ),
         ProfileContentCard(
           icon: FaIcon(FontAwesomeIcons.creditCard),
           lable: 'Payments',

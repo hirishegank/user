@@ -12,7 +12,7 @@ class DeliveryOptionPage extends StatefulWidget {
 }
 
 class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
-  bool _isDoorStep = true;
+  bool _isSelfPickup = true;
   String address;
   String deliveryOption;
 
@@ -29,7 +29,7 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(20),
-                child: Text('Delivery Address'),
+                child: Text('Location'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
@@ -41,7 +41,7 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey.shade100,
-                    hintText: 'No.10,\nExample Road,\nExample',
+                    hintText: 'No.55,\nTemple road,\nNallur,\n077 399 5161',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -73,7 +73,7 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                             child: InkWell(
                           onTap: () {
                             setState(() {
-                              _isDoorStep = !_isDoorStep;
+                              _isSelfPickup = !_isSelfPickup;
                             });
                           },
                           child: Container(
@@ -85,7 +85,7 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: _isDoorStep
+                              child: _isSelfPickup
                                   ? Icon(
                                       Icons.check,
                                       size: 30.0,
@@ -101,7 +101,7 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                         )),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Text('Door Step Pickup'),
+                          child: Text('Self Pickup'),
                         )
                       ],
                     ),
@@ -111,9 +111,9 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                             child: InkWell(
                           onTap: () {
                             setState(() {
-                              _isDoorStep = !_isDoorStep;
-                              this.deliveryOption = _isDoorStep
-                                  ? 'Door step pickup'
+                              _isSelfPickup = !_isSelfPickup;
+                              this.deliveryOption = _isSelfPickup
+                                  ? 'Self pickup'
                                   : 'Door Delivery';
                             });
                           },
@@ -126,7 +126,7 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: !_isDoorStep
+                              child: !_isSelfPickup
                                   ? Icon(
                                       Icons.check,
                                       size: 30.0,
@@ -149,14 +149,19 @@ class _DeliveryOptionPageState extends State<DeliveryOptionPage> {
                     SizedBox(
                       height: 30,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Delivery Fee'),
-                        Text(
-                            'LKR ${this.widget.deliveryFee.toStringAsFixed(2)}')
-                      ],
-                    )
+                    _isSelfPickup
+                        ? SizedBox(
+                            width: 10,
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text('Delivery Fee'),
+                              Text(
+                                  // 'LKR ${this.widget.deliveryFee.toStringAsFixed(2)}')
+                                  'LKR 150.00')
+                            ],
+                          )
                   ],
                 ),
               ),
