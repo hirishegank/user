@@ -6,13 +6,18 @@ class BigButton extends StatelessWidget {
   final String text;
   final Function onPressed;
   final double fontsize;
-  const BigButton({@required this.text, this.onPressed, this.fontsize = 25});
+  final Color bgColor;
+  const BigButton(
+      {@required this.text,
+      this.onPressed,
+      this.fontsize = 25,
+      this.bgColor = kBigButtonColor});
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: onPressed,
-      color: kBigButtonColor,
+      color: bgColor,
       minWidth: 200.0,
       elevation: 0,
       padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 80.0),

@@ -3,6 +3,7 @@ import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:user/screens/mobile_verification.dart';
+import 'package:user/screens/terms_screen.dart';
 
 class Walkthrough extends StatefulWidget {
   Walkthrough({Key key}) : super(key: key);
@@ -74,7 +75,7 @@ class _WalkthroughState extends State<Walkthrough> {
 
   void onDonePress() {
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => MobileVerificationPage()));
+        MaterialPageRoute(builder: (context) => TermsScreen()));
   }
 
   void onTabChangeCompleted(index) {
