@@ -128,7 +128,8 @@ class _CartPageState extends State<CartPage> {
                     children: <Widget>[
                       Text('Delivery fee'),
                       Text(
-                          'LKR ${(this._getTotal() * 0.1).toStringAsFixed(2)}'),
+                          // 'LKR ${(this._getTotal() * 0.1).toStringAsFixed(2)}'),
+                          'LKR 150.00'),
                     ],
                   ),
                   SizedBox(
@@ -143,7 +144,8 @@ class _CartPageState extends State<CartPage> {
                             fontSize: 35, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'LKR ${(this._getTotal() * 1.1).toStringAsFixed(2)}',
+                        // 'LKR ${(this._getTotal() * 1.1).toStringAsFixed(2)}',
+                        'LKR ${(this._getTotal() + 150).toStringAsFixed(2)}',
                         style: TextStyle(
                             fontSize: 35, fontWeight: FontWeight.bold),
                       ),
