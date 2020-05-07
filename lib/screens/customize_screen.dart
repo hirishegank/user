@@ -130,7 +130,7 @@ class _CustomizeFoodPageState extends State<CustomizeFoodPage> {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey.shade100,
-                    hintText: 'Alergic',
+                    hintText: 'Halal, soya allergy, prawn allergy, or other.',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       borderSide:
@@ -194,7 +194,10 @@ class IngrediantTag extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              ingrediant,
+              ingrediant.length > 25
+                  ? ingrediant.substring(0, 22) + '...'
+                  : ingrediant,
+              overflow: TextOverflow.clip,
               style: TextStyle(color: Colors.white),
             ),
             SizedBox(

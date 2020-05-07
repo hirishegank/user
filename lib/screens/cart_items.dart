@@ -48,6 +48,8 @@ class _CartPageState extends State<CartPage> {
     );
   }
 
+  String paymentMethod = 'Cash';
+
   double _getTotal() {
     double sum = 0;
     cart.foods.forEach((food) {
@@ -107,76 +109,98 @@ class _CartPageState extends State<CartPage> {
         child: ListView(
           children: <Widget>[
             ...cart.foods.map(foodListBuilder).toList(),
-            Container(
-              margin: EdgeInsets.all(20),
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text('Sub Total'),
-                      Text('LKR ${this._getTotal().toStringAsFixed(2)}'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('Delivery fee'),
-                      Text(
-                          // 'LKR ${(this._getTotal() * 0.1).toStringAsFixed(2)}'),
-                          'LKR 150.00'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Total',
-                        style: TextStyle(
-                            fontSize: 35, fontWeight: FontWeight.bold),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('Sub Total'),
+                          Text('LKR ${this._getTotal().toStringAsFixed(2)}'),
+                        ],
                       ),
-                      Text(
-                        // 'LKR ${(this._getTotal() * 1.1).toStringAsFixed(2)}',
-                        'LKR ${(this._getTotal() + 150).toStringAsFixed(2)}',
-                        style: TextStyle(
-                            fontSize: 35, fontWeight: FontWeight.bold),
+                      SizedBox(
+                        height: 10,
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('Delivery fee'),
+                          Text(
+                              // 'LKR ${(this._getTotal() * 0.1).toStringAsFixed(2)}'),
+                              'LKR 150.00'),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'Total',
+                            style: TextStyle(
+                                fontSize: 35, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            // 'LKR ${(this._getTotal() * 1.1).toStringAsFixed(2)}',
+                            'LKR ${(this._getTotal() + 150).toStringAsFixed(2)}',
+                            style: TextStyle(
+                                fontSize: 35, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('Payment method'),
+                          GestureDetector(
+                            child: Text(
+                              this.paymentMethod,
+                              style: TextStyle(
+                                color: Colors.green,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                this.paymentMethod =
+                                    this.paymentMethod == 'Card'
+                                        ? 'Cash'
+                                        : 'Card';
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      BigButton(
+                        fontsize: 20,
+                        text: 'Checkout',
+                        onPressed: () {
+                          print('checkout');
+                          _hitFirebase();
+                          cart.foods.clear();
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => BottomNavigation()));
+                        },
+                      )
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('Payment methode'),
-                      Text('Cash'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  BigButton(
-                    fontsize: 20,
-                    text: 'Checkout',
-                    onPressed: () {
-                      print('checkout');
-                      _hitFirebase();
-                      cart.foods.clear();
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => BottomNavigation()));
-                    },
-                  )
-                ],
-              ),
+                ),
+              ],
             )
           ],
         ),
