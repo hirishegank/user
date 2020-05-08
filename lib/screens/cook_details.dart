@@ -145,6 +145,7 @@ class _CookDetailsPageState extends State<CookDetailsPage> {
                                 .collection('chef')
                                 .document(this.widget.chefId)
                                 .collection('reviews')
+                                .where("isAccepted", isEqualTo: true)
                                 .snapshots(),
                             builder: (context, reviewSnapshots) {
                               if (!reviewSnapshots.hasData)
