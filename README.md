@@ -1,16 +1,20 @@
-# user
+# Hiri's Kitchen user app
 
-A new Flutter project.
+## Prerequisite
 
-## Getting Started
+<ul>
+<li>flutter on your local machine https://flutter.dev/docs/get-started/install </li>
+<li>Android studio with toolchain (for Android development)</li>
+<li>Need a Mac with latest Xcode installed (for IOS development)</li>
+</ul>
 
-This project is a starting point for a Flutter application.
+Clone the project to your local machine.<br>
+Open the project in VS code or In your favourite IDE ( InteliJ, Android Studio, etc.)<br>
+Open the terminal/CMD inside the VS code.<br>
 
-A few resources to get you started if this is your first Flutter project:
+Download the necessary dependencies by issueing the Command<br>
+<code>futter pub get</code>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Open an emulator (android or iOS) & issue<br>
+<code>flutter run</code></br>
+Command to run the application on android or iOS device<br>
