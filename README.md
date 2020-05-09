@@ -1,4 +1,4 @@
-# Hiri's Kitchen user app
+# Hiri's Kitchen user app (Customer) 
 
 ## Prerequisite
 
